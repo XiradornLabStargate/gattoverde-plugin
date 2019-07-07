@@ -3,7 +3,7 @@
  * @package GattoVerdePlugin
  */
 
-namespace Inc;
+namespace Inc\Base;
 
 class Deactivate
 {
