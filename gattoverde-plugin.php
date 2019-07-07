@@ -18,6 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You can\'t!' );
 }
 
+// autoload 
+if ( file_exists( dirname( __FILE__ ) . 'vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . 'vendor/autoload.php' );
+}
+
+// sort of includion based on file name and autoload
+use Inc\Activate;
+use Inc\Deactivate;
+use Inc\Admin\AdminPages;
+
 if ( !class_exists( 'GattoVerdePlugin' ) ) {
 
 	class GattoVerdePlugin
@@ -71,95 +81,22 @@ if ( !class_exists( 'GattoVerdePlugin' ) ) {
 		}
 
 		function activate() {
-			require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-activate.php';
-			GattoVerdePluginActivate::activate();		
+			// require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-activate.php';
+			// GattoVerdePluginActivate::activate();
+			Activate::activate();		
 		}
 
-		// function for deactivation
-		function deactivate() {
-			// flush revrite rules
-			flush_rewrite_rules();
-		}
 	}
 
-	if ( class_exists( 'GattoVerdePlugin' ) ) {
-		$gattoVerde = new GattoVerdePlugin();
-		$gattoVerde->register();
-	}
+	$gattoVerde = new GattoVerdePlugin();
+	$gattoVerde->register();
 
 	// activation hook
 	register_activation_hook( __FILE__, array( $gattoVerde, 'activate' ) );
 
 	// deactivation 
-	require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-deactivate.php';
-	register_deactivation_hook( __FILE__, array( 'GattoVerdePluginDeactivate', 'deactivate' ) );
+	// require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-deactivate.php';
+	// register_deactivation_hook( __FILE__, array( 'GattoVerdePluginDeactivate', 'deactivate' ) );
+	register_deactivation_hook( __FILE__, array( 'Deactivate', 'deactivate' ) );
 
 }
-
-// LESSONS 1-8
-// if ( !class_exists( 'GattoVerdePlugin' ) ) {
-
-// 	class GattoVerdePlugin
-// 	{
-// 		static function register() {
-// 			add_action( 'admin_enqueue_scripts', array( 'GattoVerdePlugin', 'enqueue' ) );
-// 		}
-
-// 		protected function create_post_type() {
-// 			add_action( 'init', array( $this, 'custom_post_type' ) );
-// 		}
-
-// 		// function for activation plugin
-// 		// function activate() {
-// 		// 	// gereate a CPT
-// 		// 	// flush rewrite rules
-// 		// 	$this->create_post_type();
-// 		// 	flush_rewrite_rules();
-// 		// }
-
-// 		function activate() {
-// 			require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-activate.php';
-// 			GattoVerdePluginActivate::activate();		
-// 		}
-
-// 		// function for deactivation
-// 		function deactivate() {
-// 			// flush revrite rules
-// 			flush_rewrite_rules();
-// 		}
-
-// 		// function for unistall
-// 		// function unistall() {
-// 		//     // delete CPT
-// 		//     // flush revrite rules
-// 		//     flush_rewrite_rules();
-// 		// }
-
-// 		// create a custom post type
-// 		function custom_post_type() {
-// 			register_post_type( 'book', ['public' => true, 'label' => 'Books'] );
-// 		}
-
-// 		static function enqueue() {
-// 			// enqueue all scripts
-// 			wp_enqueue_style( 'gattoverdestyle', plugins_url( 'assets/mystyles.css', __FILE__) );
-// 			wp_enqueue_script( 'gattoverdescript', plugins_url( 'assets/myscripts.js', __FILE__) );
-// 		}
-// 	}
-
-// 	if ( class_exists( 'GattoVerdeplugin' ) ) {
-// 		$gattoVerde = new GattoVerdePlugin();
-// 		$gattoVerde->register();
-// 		// GattoVerdeplugin::register();
-// 	}
-
-// 	// activation hook
-// 	require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-activate.php';
-// 	// register_activation_hook( __FILE__, array( 'GattoVerdePluginActivate', 'activate' ) );
-// 	register_activation_hook( __FILE__, array( $gattoVerde, 'activate' ) );
-
-// 	// deactivation 
-// 	require_once plugin_dir_path( __FILE__ ) . 'inc/gattoverde-plugin-deactivate.php';
-// 	register_deactivation_hook( __FILE__, array( 'GattoVerdePluginDeactivate', 'deactivate' ) );
-
-// }
