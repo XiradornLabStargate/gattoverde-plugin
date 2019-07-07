@@ -1,0 +1,2 @@
+<?php
+// Sicence is Golden

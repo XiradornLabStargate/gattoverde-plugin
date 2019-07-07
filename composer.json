@@ -1,0 +1,19 @@
+{
+    "name": "antonio/gattoverde-plugin",
+    "description": "test plugin",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Xiradorn",
+            "email": "xiradorn@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./inc"
+        }
+    }
+}
