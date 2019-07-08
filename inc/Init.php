@@ -13,9 +13,9 @@ final class Init
 	 */
 	public static function get_services() {
 		return [
-			Base\Enqueue::class;
-			Base\SettingsLinks::class;
-			Pages\Admin::class;
+			Base\Enqueue::class,
+			Base\SettingsLinks::class,
+			Pages\Admin::class,
 		];
 	}
 	

@@ -19,29 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // autoload 
-if ( file_exists( dirname( __FILE__ ) . 'vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . 'vendor/autoload.php' );
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
-
-define( 'PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'PLUGIN', plugin_basename( __FILE__ ) );
-
 
 // the activation and deactivation must be external end not inside a recall classes
-use Inc\Base\Activate;
-use Inc\Base\Deactivate;
+// use Inc\Base\Activate;
+// use Inc\Base\Deactivate;
+// we can call directly
 
 function activate_gattoverde_plugin() {
-	Activate::activate
+	Inc\Base\Activate::activate();
 }
+register_activation_hook( __FILE__, 'activate_gattoverde_plugin' );
 
 function deactivate_gattoverde_plugin() {
-	Deactivate::deactivate
+	Inc\Base\Deactivate::deactivate();
 }
-
-// hooks
-register_activation_hook( __FILE__, 'activate_gattoverde_plugin' );
 register_activation_hook( __FILE__, 'deactivate_gattoverde_plugin' );
 
 if ( class_exists( 'Inc\\Init' ) ) {
