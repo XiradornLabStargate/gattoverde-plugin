@@ -14,7 +14,7 @@ class SettingsApi
 
 	public function register() 
 	{
-		if ( !empty( $this->admin_pages ) ) {
+		if ( empty( $this->admin_pages ) ) {
 			add_action( 'admin_menu', array( $this, 'addAdminMenu' ) );
 		}
 	}
@@ -27,7 +27,7 @@ class SettingsApi
 
 	public function withSubPage( string $title = null )
 	{
-		if ( !empty( $this->admin_pages ) ) {
+		if ( empty( $this->admin_pages ) ) {
 			return $this;
 		}
 
