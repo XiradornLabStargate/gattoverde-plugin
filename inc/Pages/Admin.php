@@ -25,12 +25,15 @@ class Admin extends BaseController
 	{
 
 		$this->settings = new SettingsApi();
-
 		$this->callbacks = new AdminCallbacks();
 
 		$this->setPages();
 
 		$this->setSubPages();
+
+		$this->setSettings();
+		$this->setSections();
+		$this->setFields();
 
 		$this->settings->addPages( $this->pages )->withSubPage( 'Dashboard' )->addSubPages( $this->subpages )->register();
 	}
@@ -61,7 +64,7 @@ class Admin extends BaseController
 				'menu_title' 	=> 'CPT', 
 				'capability' 	=> 'manage_options', 
 				'menu_slug' 	=> 'gattoverde_cpt', 
-				'callback' 		=> function() { echo "<h1>GattoVerde CPT</h1>"; },
+				'callback' 		=> array( $this->callbacks, 'adminCpt' ),
 			),
 			array(
 				'parent_slug' 	=> 'gattoverde_plugin', 
@@ -69,7 +72,7 @@ class Admin extends BaseController
 				'menu_title' 	=> 'Taxonomies', 
 				'capability' 	=> 'manage_options', 
 				'menu_slug' 	=> 'gattoverde_taxonomies', 
-				'callback' 		=> function() { echo "<h1>GattoVerde CPT</h1>"; },
+				'callback' 		=> array( $this->callbacks, 'adminTaxonomies' ),
 			),
 			array(
 				'parent_slug' 	=> 'gattoverde_plugin', 
@@ -77,20 +80,71 @@ class Admin extends BaseController
 				'menu_title' 	=> 'Widgets', 
 				'capability' 	=> 'manage_options', 
 				'menu_slug' 	=> 'gattoverde_widgets', 
-				'callback' 		=> function() { echo "<h1>GattoVerde CPT</h1>"; },
+				'callback' 		=> array( $this->callbacks, 'adminWidgets' ),
 			),
 		);
 	}
 
-	// public function add_admin_pages() 
-	// {
-	// 	add_menu_page( 'GattoVerde Plugin', 'GattoVerde', 'manage_options', 'gattoverde_plugin', array($this, 'admin_index'), 'dashicons-store', 110 );
-	// }
+	// now set the fields, sections and fields for the specific page form
+	public function setSettings()
+	{
+		$args = array(
+			array(
+				'option_group' 	=> 'gattoverde_options_group',
+				'option_name' 	=> 'example',
+				'callback' 		=> array( $this->callbacks, 'gattoverdeOptionsGroup' ),
+			),
+			array(
+				'option_group' 	=> 'gattoverde_options_group',
+				'option_name' 	=> 'first_name',
+			),
+		);
 
-	// public function admin_index() 
-	// {
-	// 	// require template
-	// 	require_once $this->plugin_path . 'templates/admin.php';
-	// }
+		$this->settings->addSettings( $args );
+	}
+
+	public function setSections()
+	{
+		$args = array(
+			array(
+				'id' 		=> 'gattoverde_admin_index',
+				'title' 	=> 'Settings',
+				'callback' 	=> array( $this->callbacks, 'gattoverdeAdminSection' ),
+				'page'		=> 'gattoverde_plugin'
+			),
+		);
+
+		$this->settings->addSections( $args );
+	}
+
+	public function setFields()
+	{
+		$args = array(
+			array(
+				'id' 		=> 'example', // same of option_group name
+				'title' 	=> 'Example',
+				'callback' 	=> array( $this->callbacks, 'gattoverdeExample' ),
+				'page'		=> 'gattoverde_plugin', //linked to the page
+				'section'	=> 'gattoverde_admin_index', //linked to section id
+				'args'		=> array(
+					'label_for' 	=> 'example',
+					'class' 		=> 'example-class'
+				),
+			),
+			array(
+				'id' 		=> 'first_name', // same of option_group name
+				'title' 	=> 'First Name',
+				'callback' 	=> array( $this->callbacks, 'gattoverdeFirstName' ),
+				'page'		=> 'gattoverde_plugin', //linked to the page
+				'section'	=> 'gattoverde_admin_index', //linked to section id
+				'args'		=> array(
+					'label_for' 	=> 'first_name',
+					'class' 		=> 'first-name-class'
+				),
+			),
+		);
+
+		$this->settings->addFields( $args );
+	}
 
 }
