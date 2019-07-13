@@ -5,32 +5,54 @@
 
 namespace Inc\Pages;
 
-// the initial \ meaning look inside the root plugin
-use \Inc\Base\BaseController;
+// order by lenght of string name PSR-2
 use \Inc\Api\SettingsApi;
+use \Inc\Base\BaseController;
+use \Inc\Api\Callbacks\AdminCallbacks;
 
 class Admin extends BaseController
 {
 	public $settings;
 
+	public $callbacks;
+
 	public $pages = array();
 
 	public $subpages = array();
-	
-	public function __construct() {
+
+	// used for registering the services inside a special class
+	public function register() 
+	{
+
 		$this->settings = new SettingsApi();
 
+		$this->callbacks = new AdminCallbacks();
+
+		$this->setPages();
+
+		$this->setSubPages();
+
+		$this->settings->addPages( $this->pages )->withSubPage( 'Dashboard' )->addSubPages( $this->subpages )->register();
+	}
+
+	public function setPages()
+	{
 		$this->pages = array(
 			array(
 				'page_title' 	=> 'GattoVerde Plugin', 
 				'menu_title' 	=> 'GattoVerde', 
 				'capability' 	=> 'manage_options', 
 				'menu_slug' 	=> 'gattoverde_plugin', 
-				'callback' 		=> function() { echo "<h1>GattoVerde Plugin</h1>"; }, 
+				// 'callback' 		=> function() { return require_once ("$this->plugin_path/templates/admin.php" ); }, 
+				'callback' 		=> array( $this->callbacks, 'adminDashboard' ), 
 				'icon_url' 		=> 'dashicons-store', 
 				'position' 		=> 110
 			)
 		);
+	}
+
+	public function setSubPages()
+	{
 
 		$this->subpages = array(
 			array(
@@ -58,12 +80,6 @@ class Admin extends BaseController
 				'callback' 		=> function() { echo "<h1>GattoVerde CPT</h1>"; },
 			),
 		);
-	}
-
-	// used for registering the services inside a special class
-	public function register() 
-	{
-		$this->settings->addPages( $this->pages )->withSubPage( 'Dashboard' )->addSubPages( $this->subpages )->register();
 	}
 
 	// public function add_admin_pages() 
