@@ -33,25 +33,25 @@ class AdminCallbacks extends BaseController
 	//////////////
 	/// for the forms
 	/// 
-	public function gattoverdeOptionsGroup( $input )
-	{
-		return $input;
-	}
+	// public function gattoverdeOptionsGroup( $input )
+	// {
+	// 	return $input;
+	// }
 
-	public function gattoverdeAdminSection()
-	{
-		return "Super Awesome";
-	}
+	// public function gattoverdeAdminSection()
+	// {
+	// 	return "Super Awesome";
+	// }
 
-	public function gattoverdeExample()
-	{
-		$value = esc_attr( get_option( "example" ) );
-		echo "<input type=\"text\" class=\"regular-text\" name=\"example\" value=\"$value\" placeholder=\"Scrivi\" >";
-	}
+	// public function gattoverdeExample()
+	// {
+	// 	$value = esc_attr( get_option( "example" ) );
+	// 	echo "<input type=\"text\" class=\"regular-text\" name=\"example\" value=\"$value\" placeholder=\"Scrivi\" >";
+	// }
 
-	public function gattoverdeFirstName()
-	{
-		$value = esc_attr( get_option( "first_name" ) );
-		echo "<input type=\"text\" class=\"regular-text\" name=\"first_name\" value=\"$value\" placeholder=\"Scrivi\" >";
-	}
+	// public function gattoverdeFirstName()
+	// {
+	// 	$value = esc_attr( get_option( "first_name" ) );
+	// 	echo "<input type=\"text\" class=\"regular-text\" name=\"first_name\" value=\"$value\" placeholder=\"Scrivi\" >";
+	// }
 }
