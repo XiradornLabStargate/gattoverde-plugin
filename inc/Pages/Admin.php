@@ -136,13 +136,23 @@ class Admin extends BaseController
 		// EQUIVALENT TO THE FOLLOWING LINE
 		// with the foreach 
 		
-		foreach ( $this->managers as $manager => $manager_title ) {
-			$args[] = array(
+		// foreach ( $this->managers as $manager => $manager_title ) {
+		// 	$args[] = array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> $manager,
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' ),
+		// 	);
+		// }
+		
+		// for serialize data
+		$args = array(
+			array(
 				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> $manager,
+				'option_name' 	=> 'gattoverde_plugin',
 				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' ),
-			);
-		}
+			)
+		);
+		
 
 		$this->settings->addSettings( $args );
 	}
@@ -262,8 +272,9 @@ class Admin extends BaseController
 				'page'		=> 'gattoverde_plugin', //linked to the page
 				'section'	=> 'gattoverde_admin_index', //linked to section id
 				'args'		=> array(
-					'label_for' 	=> 'cpt',
-					'class' 		=> 'cpt-class'
+					'option_name' 	=> 'gattoverde_plugin', // linked to the page
+					'label_for' 	=> $manager,
+					'class' 		=> 'ui-toggle'
 				)
 			);
 		}

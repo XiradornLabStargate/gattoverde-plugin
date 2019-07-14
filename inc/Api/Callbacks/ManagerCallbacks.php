@@ -13,7 +13,15 @@ class ManagerCallbacks extends BaseController
 	public function checkboxSanitize( $input )
 	{
 		// return filter_var($input, FILTER_SANITIZE_NUMBER_INT);
-		return ( isset( $input ) ? true : false ); // same 
+		// return ( isset( $input ) ? true : false ); // same
+		// 
+		$output = array();
+
+		foreach ( $this->managers as $manager => $manager_title ) {
+			$output[$manager] = isset( $input[$manager] ) ? true : false;
+		} 
+
+		return $output;
 	}
 
 	public function gattoverdeSectionManager()
@@ -25,9 +33,10 @@ class ManagerCallbacks extends BaseController
 	{
 		$name = $args['label_for'];
 		$class = $args['class'];
-		$checked = get_option( $name ) ? 'checked' : '';
+		$option_name =  $args['option_name'];
+		$checkbox = get_option( $option_name );
 		
-		echo "<input type=\"checkbox\" class=\"$classes\" name=\"$name\" value=\"1\" $checked>";
+		echo '<div class="' . $class . '"><input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="" ' . ($checkbox[$name] ? 'checked' : '') . '><label for="' . $name . '"><div></div></label></div>';
 	} 
 
 }
