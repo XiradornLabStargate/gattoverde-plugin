@@ -17,6 +17,14 @@ final class Init
 			Pages\Dashboard::class,
 			Base\SettingsLinks::class,
 			Base\CustomPostTypeControllorer::class,
+			Base\TaxonomyControllorer::class,
+			Base\MediaWidgetControllorer::class,
+			Base\GalleryControllorer::class,
+			Base\TestimonialControllorer::class,
+			Base\LoginControllorer::class,
+			Base\MembershipControllorer::class,
+			Base\TemplatesControllorer::class,
+			Base\ChatSystemControllorer::class,
 		];
 	}
 	
