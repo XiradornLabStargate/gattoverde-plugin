@@ -91,48 +91,58 @@ class Admin extends BaseController
 	// now set the fields, sections and fields for the specific page form
 	public function setSettings()
 	{
-		$args = array(
-			array(
+		// $args = array(
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'cpt_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' ),
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'taxonomy_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'media_widget',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'testimonial_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'templates_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'login_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'menùmbership_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// 	array(
+		// 		'option_group' 	=> 'gattoverde_plugin_settings',
+		// 		'option_name' 	=> 'chatsystem_manager',
+		// 		'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
+		// 	),
+		// );
+		// EQUIVALENT TO THE FOLLOWING LINE
+		// with the foreach 
+		
+		foreach ( $this->managers as $manager => $manager_title ) {
+			$args[] = array(
 				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'cpt_manager',
+				'option_name' 	=> $manager,
 				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' ),
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'taxonomy_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'media_widget',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'testimonial_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'templates_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'login_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'menùmbership_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' 	=> 'gattoverde_plugin_settings',
-				'option_name' 	=> 'chatsystem_manager',
-				'callback' 		=> array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-		);
+			);
+		}
 
 		$this->settings->addSettings( $args );
 	}
@@ -153,96 +163,110 @@ class Admin extends BaseController
 
 	public function setFields()
 	{
-		$args = array(
-			array(
-				'id' 		=> 'cpt_manager', // same of option_group name
-				'title' 	=> 'Activate CPT Manager',
+		// $args = array(
+		// 	array(
+		// 		'id' 		=> 'cpt_manager', // same of option_group name
+		// 		'title' 	=> 'Activate CPT Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'cpt',
+		// 			'class' 		=> 'cpt-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'taxonomy_manager', // same of option_group name
+		// 		'title' 	=> 'Taxonomy CPT Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'taxonomy',
+		// 			'class' 		=> 'taxonomy-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'gallery_manager', // same of option_group name
+		// 		'title' 	=> 'Activate Gallery Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'gallery',
+		// 			'class' 		=> 'gallery-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'testimonial_manager', // same of option_group name
+		// 		'title' 	=> 'Activate Testimonial Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'testimonial',
+		// 			'class' 		=> 'testimonial-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'templates', // same of option_group name
+		// 		'title' 	=> 'Activate Templates Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'templates',
+		// 			'class' 		=> 'templates-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'login_manager', // same of option_group name
+		// 		'title' 	=> 'Activate Login Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'login',
+		// 			'class' 		=> 'login-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'membership_manager', // same of option_group name
+		// 		'title' 	=> 'Activate Membership Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'membership',
+		// 			'class' 		=> 'membership-class'
+		// 		),
+		// 	),
+		// 	array(
+		// 		'id' 		=> 'chatsystem_manager', // same of option_group name
+		// 		'title' 	=> 'Activate Membership Manager',
+		// 		'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
+		// 		'page'		=> 'gattoverde_plugin', //linked to the page
+		// 		'section'	=> 'gattoverde_admin_index', //linked to section id
+		// 		'args'		=> array(
+		// 			'label_for' 	=> 'chatsystem',
+		// 			'class' 		=> 'chatsystem-class'
+		// 		),
+		// 	),
+		// );
+		// 
+		foreach ( $this->managers as $manager => $manager_title ) {
+			$args[] = array(
+				'id' 		=> $manager, // same of option_group name
+				'title' 	=> $manager_title,
 				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
 				'page'		=> 'gattoverde_plugin', //linked to the page
 				'section'	=> 'gattoverde_admin_index', //linked to section id
 				'args'		=> array(
 					'label_for' 	=> 'cpt',
 					'class' 		=> 'cpt-class'
-				),
-			),
-			array(
-				'id' 		=> 'taxonomy_manager', // same of option_group name
-				'title' 	=> 'Taxonomy CPT Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'taxonomy',
-					'class' 		=> 'taxonomy-class'
-				),
-			),
-			array(
-				'id' 		=> 'gallery_manager', // same of option_group name
-				'title' 	=> 'Activate Gallery Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'gallery',
-					'class' 		=> 'gallery-class'
-				),
-			),
-			array(
-				'id' 		=> 'testimonial_manager', // same of option_group name
-				'title' 	=> 'Activate Testimonial Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'testimonial',
-					'class' 		=> 'testimonial-class'
-				),
-			),
-			array(
-				'id' 		=> 'templates', // same of option_group name
-				'title' 	=> 'Activate Templates Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'templates',
-					'class' 		=> 'templates-class'
-				),
-			),
-			array(
-				'id' 		=> 'login_manager', // same of option_group name
-				'title' 	=> 'Activate Login Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'login',
-					'class' 		=> 'login-class'
-				),
-			),
-			array(
-				'id' 		=> 'membership_manager', // same of option_group name
-				'title' 	=> 'Activate Membership Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'membership',
-					'class' 		=> 'membership-class'
-				),
-			),
-			array(
-				'id' 		=> 'chatsystem_manager', // same of option_group name
-				'title' 	=> 'Activate Membership Manager',
-				'callback' 	=> array( $this->callbacks_mngr, 'checkboxField' ),
-				'page'		=> 'gattoverde_plugin', //linked to the page
-				'section'	=> 'gattoverde_admin_index', //linked to section id
-				'args'		=> array(
-					'label_for' 	=> 'chatsystem',
-					'class' 		=> 'chatsystem-class'
-				),
-			),
-		);
+				)
+			);
+		}
 
 		$this->settings->addFields( $args );
 	}
